@@ -1,10 +1,11 @@
 import sequelize from "../database/sequelize.js";
 import { DataTypes } from "sequelize";
+import User from "./user.js";
 
 const Task = sequelize.define(
     'Task',
     {
-        id: {
+      id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
@@ -13,20 +14,30 @@ const Task = sequelize.define(
         type: DataTypes.STRING,
         allowNull: false
       },
-      decricao: {
-        type: DataTypes.STRING, 
+      descricao: {
+        type: DataTypes.STRING
       },
       dataHora: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
       },
       tipo: {
-        type: DataTypes.ENUM ('Pessoal', 'Profissional'),
+        type: DataTypes.ENUM('Pessoal', 'Profissional'),
         allowNull: false
-      },
+      }
+    },
+    {
+      // Other model options go here
     },
   );
-  
-  Task.sync();  
 
-  export default Task;
+User.hasMany(Task,{
+  foreignKey: 'userId',
+  allowNull: false,
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+});
+
+Task.sync({force:true});
+
+export default Task;
