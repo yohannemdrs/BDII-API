@@ -1,49 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Lembretes</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <script>
-        fetch("http://localhost:3000/tasks")
-            .then(response =>{
-                response.json().then(task =>{
-                    console.log(task)
-                })
-            })
-    </script>
-
-    <h1>Salvar Usuário</h1>
-    <div>
-        <input type="text" id="firstName" placeholder="Nome">
-        <input type="text" id="lastName" placeholder="Sobrenome">
-        <button id="btSalvar">Salvar</button>
+  <div class="container">
+    <div class="card">
+      <h1>Adicionar Lembrete</h1>
+      <div class="form">
+        <input type="text" id="titulo" placeholder="Título do lembrete">
+        <textarea id="descricao" placeholder="Descrição do lembrete"></textarea>
+        <select id="tipo">
+          <option value="">Tipo do Lembrete</option>
+          <option value="Pessoal">Pessoal</option>
+          <option value="Profissional">Profissional</option>
+        </select>
+        <button id="btSalvar">Adicionar Lembrete</button>
+      </div>
     </div>
 
-    <script>
+    <div class="card">
+      <h1>Meus Lembretes</h1>
+      <div class="filtros">
+        <button onclick="filtrarTarefas('Todas')">Todas</button>
+        <button onclick="filtrarTarefas('Pessoal')">Pessoais</button>
+        <button onclick="filtrarTarefas('Profissional')">Profissionais</button>
+      </div>
+      <ul id="taskList" class="task-list"></ul>
+    </div>
+  </div>
 
-        const btSalvar = document.getElementById("btSalvar")
-        btSalvar.addEventListener('click', function(){
-            const firstName = document.getElementById("firstName")
-            const lastName = document.getElementById("lastName")
-            const user = {
-                firstName: firstName.value,
-                lastName: lastName.value
-            }
-
-            fetch("http://localhost:3000/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(user)
-            })
-            //TODO: Tratar o retorno, exceção
-
-        });
-    </script>
-
+  <script src="script.js"></script>
 </body>
 </html>

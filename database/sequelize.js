@@ -2,7 +2,7 @@ import { Sequelize} from "sequelize";
 import dontenv from "dotenv"
 dontenv.config();
 
-const sequelize = new Sequelize(process.env.POSTGRES_BD, process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
+const sequelize = new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
     host: process.env.POSTGRES_HOST,
     dialect: 'postgres'
 });
